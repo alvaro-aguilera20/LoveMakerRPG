@@ -2,6 +2,13 @@ import sqlite3 as sql
 
 import pygame
 
+conn = sql.connect
+
+def mostrarObjeto(id):
+    return conn.execute("SELECT nombreObjeto FROM objetos WHERE objetoID == {id}")
+
+print (mostrarObjeto(2))
+
 pygame.init()
 
 pygame.font.Font()
@@ -42,16 +49,16 @@ def mostrarTexto(texto, fuente, color, X, Y):
 while True:
     #pantalla.fill(azul)
     pantalla.blit(cielo, (0,0))
-    pantalla.blit(edificiosDeFondo, (0,-100))
-    pantalla.blit(jefecitoEnfadadito,(0,-220))
-    pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
-    pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+    #pantalla.blit(edificiosDeFondo, (0,-100))
+    #pantalla.blit(jefecitoEnfadadito,(0,-220))
+    #pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+    #pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
     #pygame.draw.rect(pantalla,(celestePastel), (400,200,300,300), width= 100,border_radius=100)
     #mostrarTexto("WENAS",FTimes, celeste, 500,500)
     #mostrarTexto("ÑYA ÑYA ÑYA HAHA",FPapyro, celeste,15,500)
-    mostrarTexto("EEEEEEEEEEEEEEEEEEEEEEEE",FCalacaChida, celeste,35,500)
+    #mostrarTexto("EEEEEEEEEEEEEEEEEEEEEEEE",FCalacaChida, celeste,35,500)
     #pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
-    pygame.display.update()
+    #pygame.display.update()
 
     #menu de movimientos
     #pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
@@ -63,14 +70,14 @@ while True:
     #mostrarTexto("<-",FOCR,celestePastel, 400, 400)
 
     #menu de objetos
-    #pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
-    #pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
-    #mostrarTexto("OBJ1",FOCR,celeste, 50, 400)
+    pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+    pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+    mostrarTexto("OBJ1",FOCR,celeste, 50, 400)
     #mostrarTexto("OBJ2",FOCR,celeste, 650, 400)
     #mostrarTexto("OBJ3",FOCR,celeste, 50, 550)
     #mostrarTexto("OBJ4",FOCR,celeste, 650, 550)
     #mostrarTexto("<-",FOCR,celestePastel, 400, 400)
-    #pygame.display.update()
+    pygame.display.update()
 
     #menu de equipo
     #pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
