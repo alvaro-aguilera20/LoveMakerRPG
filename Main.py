@@ -210,11 +210,70 @@ import sqlite3 as sql
 #if __name__ == "__main__":
 #    verMovimientos()
 
-conn = sql.connect("Registro.db")
+
+#test mostrar nombre del objeto
 
 def mostrarObjeto():
-    cursor = conn.execute("SELECT nombreObjeto FROM objetos")
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT nombreObjeto FROM objetos where objetoID = 1")
     for row in cursor:
-        print (row[0])
+        
+        return(row[0])
+    conn.close()
+    
 
-mostrarObjeto()
+#objeto = mostrarObjeto()
+
+#print (objeto)
+
+#test matemasticas en batallas
+
+def obtenerFuerza():
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT fuerza FROM bots where botID = 1")
+    for row in cursor:
+        
+        return(row[0])
+    conn.close()
+
+def aplicarMovimiento():
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT daño FROM movimientos where movimientoID = 6")
+    for row in cursor:
+        
+        return(row[0])
+    conn.close()
+
+def aplicarEfecto():
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT efecto FROM movimientos where movimientoID = 6")
+    for row in cursor:
+        
+        return(row[0])
+    conn.close()
+
+def saludHumano():
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT salud FROM humanos where humanoID = 2")
+    for row in cursor:
+        
+        return(row[0])
+    conn.close()
+
+if aplicarEfecto() == "*":
+    print (saludHumano() - obtenerFuerza() * aplicarMovimiento())
+else:
+    print ("fracaso")
+
+
+#test automatizacion
+
+def mostrarNombre(id):
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
+        (id,))
+    for row in cursor:
+        return(row[0])
+    conn.close()
+
+print(mostrarNombre(3))

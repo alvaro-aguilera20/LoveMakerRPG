@@ -2,13 +2,6 @@ import sqlite3 as sql
 
 import pygame
 
-conn = sql.connect
-
-def mostrarObjeto(id):
-    return conn.execute("SELECT nombreObjeto FROM objetos WHERE objetoID == {id}")
-
-print (mostrarObjeto(2))
-
 pygame.init()
 
 pygame.font.Font()
@@ -46,6 +39,14 @@ def mostrarTexto(texto, fuente, color, X, Y):
     Text= fuente.render(texto, True, color)
     pantalla.blit(Text,(X,Y))
 
+def obtenerObjeto(id):
+    conn = sql.connect("Registro.db")
+    cursor = conn.execute("SELECT nombreObjeto FROM objetos where objetoID = ?",
+        (id,))
+    for row in cursor:
+        return(row[0])
+    conn.close()
+
 while True:
     #pantalla.fill(azul)
     pantalla.blit(cielo, (0,0))
@@ -72,10 +73,10 @@ while True:
     #menu de objetos
     pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
     pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
-    mostrarTexto("OBJ1",FOCR,celeste, 50, 400)
-    #mostrarTexto("OBJ2",FOCR,celeste, 650, 400)
-    #mostrarTexto("OBJ3",FOCR,celeste, 50, 550)
-    #mostrarTexto("OBJ4",FOCR,celeste, 650, 550)
+    mostrarTexto(obtenerObjeto(1),FOCR,celeste, 50, 400)
+    mostrarTexto(obtenerObjeto(5),FOCR,celeste, 650, 400)
+    mostrarTexto(obtenerObjeto(3),FOCR,celeste, 50, 550)
+    mostrarTexto(obtenerObjeto(4),FOCR,celeste, 650, 550)
     #mostrarTexto("<-",FOCR,celestePastel, 400, 400)
     pygame.display.update()
 
