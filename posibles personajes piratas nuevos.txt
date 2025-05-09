@@ -1,0 +1,7 @@
+posibles personajes piratas nuevos  (S.A = Special Attack)
+
+		martillo S.A (8% posibilidad de aturdir, si lo llega a aturdir obtiene un turno extra)
+		pistola doble S.A (5% posibilidad de ataque doble)
+		cuchillo tactico S.A (7% posibilidad de esquivar el ataque)
+		lanzagranadas S.A (10% posibilidad de explotar al atacante)
+		
