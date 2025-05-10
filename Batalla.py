@@ -37,7 +37,7 @@ pygame.font.Font()
 
 
 
-humano1 = pygame.image.load("graficos/Humano1.png")
+humano1 = pygame.image.load("graficos/Wenas.png")
 
 
 Bot1 = pygame.image.load("graficos/Bot1.png")
