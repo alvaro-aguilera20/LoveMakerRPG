@@ -32,7 +32,7 @@ cielo = pygame.image.load("graficos/cielo.png")
 edificiosDeFondo = pygame.image.load("graficos/edificios.png")
 
 
-humano1 = pygame.image.load("graficos/Wenas.png")
+humano1 = pygame.image.load("graficos/Humano1.png")
 
 
 Bot1 = pygame.image.load("graficos/Bot1.png")
