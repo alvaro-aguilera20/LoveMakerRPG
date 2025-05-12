@@ -585,92 +585,6 @@ import sqlite3 as sql
 
 
 
-
-
-#def verMovimientos():
-
-
-#    conn = sql.connect("Registro.db")
-
-
-#    cursor = conn.execute("SELECT * FROM movimientos")
-
-
-#    for row in cursor:
-
-
-#        print("ID ", row[0])
-
-
-#        print("como se llama la wea", row[1])
-
-
-#        print("cuanta potencia tiene ", row[2])
-
-
-#        print("que hace ", row[3])
-
-
-#        print("cambio de terreno ", row[4])
-
-
-#        print("cuanta energia cuesta ", row[5])
-
-
-#        print("descripcion detallada: ", row[6], "\n")
-
-
-#    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    verMovimientos()
-
-
-
-
-
-
-
-
-#test mostrar nombre del objeto
-
-
-
-
-
-def mostrarObjeto():
-
-
-    conn = sql.connect("Registro.db")
-
-
-    cursor = conn.execute("SELECT nombreObjeto FROM objetos where objetoID = 1")
-
-
-    for row in cursor:
-
-
-        
-
-
-        return(row[0])
-
-
-    conn.close()
-
-
-    
-
-
-
-
-
 #objeto = mostrarObjeto()
 
 
@@ -785,46 +699,63 @@ def saludHumano():
 
 
 
-if aplicarEfecto() == "*":
+#if aplicarEfecto() == "*":
 
 
-    print (saludHumano() - obtenerFuerza() * aplicarMovimiento())
+#    print (saludHumano() - obtenerFuerza() * aplicarMovimiento())
 
 
-else:
+#else:
 
 
-    print ("fracaso")
-
-
-
+#    print ("fracaso")
 
 
 
 
 
-#test automatizacion
+
+
+
+#automatizacion
 
 
 
 
 
-def mostrarNombre(id):
+#def mostrarNombre(id):
 
 
-    conn = sql.connect("Registro.db")
+#    conn = sql.connect("Registro.db")
 
 
-    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
+#    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
 
 
-        (id,))
+#        (id,))
 
 
-    for row in cursor:
+#    for row in cursor:
 
 
-        return(row[0])
+#        return(row[0])
 
 
-    conn.close()
+#    conn.close()
+
+# corregir errores
+
+conn = sql.connect("Registro.db")
+
+cursor = conn.cursor()
+
+cursor.execute("UPDATE movimientos SET nombreMovimiento = 'Paraguas Protector' where movimientoID = 1")
+
+cursor = conn.execute("SELECT * FROM movimientos")
+
+conn.commit()
+
+for row in cursor:
+    print(row)
+
+conn.close()
