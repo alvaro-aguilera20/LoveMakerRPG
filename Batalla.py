@@ -39,17 +39,27 @@ pygame.font.Font()
 
 humano1 = pygame.image.load("graficos/Humano1.png")
 
+humano2 = pygame.image.load("graficos/Humano2.png")
 
 Bot1 = pygame.image.load("graficos/Bot1.png")
 
+Bot2 = pygame.image.load("graficos/Bot2.png")
+
+Bot3 = pygame.image.load("graficos/Bot3.png")
 
 Bella = pygame.image.load("graficos/Bella.png")
 
+Angel = pygame.image.load("graficos/Angel.png")
+
+Glitter = pygame.image.load("graficos/Glitter.png")
 
 Miguel = pygame.image.load("graficos/Miguel.png")
 
+Carlos = pygame.image.load("graficos/Carlos.png")
 
 MontañitasFondo = pygame.image.load("graficos/montañitas.png")
+
+CiudadFondo= pygame.image.load("graficos/ciudad fondo.png")
 
 
 
@@ -261,14 +271,20 @@ humano_surface = pygame.transform.scale(humano1,(110,110))
 
 bot1_surface = pygame.transform.scale(Bot1,(110,110))
 
+bot2_surface = pygame.transform.scale(Bot2,(110,110))
+
+bot3_surface = pygame.transform.scale(Bot3,(110,110))
+
 
 fondo1 = pygame.transform.scale(MontañitasFondo,(1280,720))
 
+fondo2 = pygame.transform.scale(CiudadFondo,(1280,720))
 
 
 
 
-pantalla.blit(fondo1,(0,-100))
+
+pantalla.blit(fondo2,(0,-300))
 
 
 
@@ -280,10 +296,10 @@ iconoHumano1 = boton(humano_surface, 85, 625,FOCR,"")
 iconoBot1 = boton(bot1_surface, 290, 625,FOCR,"")
 
 
-iconoBot2 = boton(bot1_surface, 495, 625,FOCR,"")
+iconoBot2 = boton(bot2_surface, 495, 625,FOCR,"")
 
 
-iconoBot3 = boton(bot1_surface, 700, 625,FOCR,"")
+iconoBot3 = boton(bot3_surface, 700, 625,FOCR,"")
 
 
 iconoBot4 = boton(bot1_surface, 905, 625,FOCR,"")
@@ -711,10 +727,6 @@ def MenuMovimientos2():
 
     while True:
 
-
-
-
-
         posicionMouse = pygame.mouse.get_pos()
 
 
@@ -855,27 +867,17 @@ def MenuHumano():
 
         posicionMouse = pygame.mouse.get_pos()
 
+        botOponente = pygame.transform.scale(Angel,(500,450))
+
+        humanoOponente = pygame.transform.scale(Carlos,(150,300))
+
+        pantalla.blit(botOponente,(350,-25))
+
+        pantalla.blit(humanoOponente,(350,100))
 
         pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
 
-
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
-
-
-        #pygame.draw.rect(pantalla,(celestePastel), (400,200,300,300), width= 100,border_radius=100)
-
-
-        botOponente = pygame.transform.scale(Bella,(300,400))
-
-
-        humanoOponente = pygame.transform.scale(Miguel,(300,300))
-
-
-        pantalla.blit(humanoOponente,(400,100))
-
-
-        pantalla.blit(botOponente,(350,0))
-
 
         pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
 
