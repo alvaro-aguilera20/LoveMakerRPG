@@ -233,60 +233,6 @@ import sqlite3 as sql
 #if __name__ == "__main__":
 
 
-#    meterDatosDeHumanos()
-
-
-
-
-
-#insertar algunos objetos y movimientos
-
-
-
-
-
-#def verHumanos():
-
-
-#    conn = sql.connect("Registro.db")
-
-
-#    cursor = conn.execute("SELECT * FROM Humanos")
-
-
-#    for row in cursor:
-
-
-#        print("ID ", row[0])
-
-
-#        print("Nombre ", row[1])
-
-
-#        print("Salud ", row[2])
-
-
-#        print("Fuerza ", row[3])
-
-
-#        print("Lukas $", row[4], "\n")
-
-
-#    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    verHumanos()
-
-
-
-
-
 #insertar bots
 
 
@@ -321,59 +267,6 @@ import sqlite3 as sql
 
 
 #    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    meterDatosDeBots()
-
-
-
-
-
-#def verBots():
-
-
-#    conn = sql.connect("Registro.db")
-
-
-#    cursor = conn.execute("SELECT * FROM bots")
-
-
-#    for row in cursor:
-
-
-#        print("ID ", row[0])
-
-
-#        print("Nombre ", row[1])
-
-
-#        print("Salud ", row[2])
-
-
-#        print("Fuerza ", row[3])
-
-
-#        print("Energia ", row[4], "\n")
-
-
-#    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    verBots()
-
-
 
 
 
@@ -423,62 +316,6 @@ import sqlite3 as sql
 
 
 #    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    meterDatosDeObjetos()
-
-
-
-
-
-#def verObjetos():
-
-
-#    conn = sql.connect("Registro.db")
-
-
-#    cursor = conn.execute("SELECT * FROM objetos")
-
-
-#    for row in cursor:
-
-
-#        print("ID ", row[0])
-
-
-#        print("como se llama la wea", row[1])
-
-
-#        print("que hace ", row[2])
-
-
-#        print("cuanta potencia tiene ", row[3])
-
-
-#        print("cuanto dura ", row[4])
-
-
-#        print("Descripcion detallada: ", row[5], "\n")
-
-
-#    conn.close()
-
-
-
-
-
-#if __name__ == "__main__":
-
-
-#    verObjetos()
-
-
 
 
 
@@ -583,179 +420,216 @@ import sqlite3 as sql
 
 #    meterDatosDeMovimientos()
 
-
-
 #objeto = mostrarObjeto()
-
-
-
 
 
 #print (objeto)
 
 
-
-
-
-#test matemasticas en batallas
-
-
-
-
-
-def obtenerFuerza():
-
-
-    conn = sql.connect("Registro.db")
-
-
-    cursor = conn.execute("SELECT fuerza FROM bots where botID = 1")
-
-
-    for row in cursor:
-
-
-        
-
-
-        return(row[0])
-
-
-    conn.close()
-
-
-
-
-
-def aplicarMovimiento():
-
-
-    conn = sql.connect("Registro.db")
-
-
-    cursor = conn.execute("SELECT daño FROM movimientos where movimientoID = 6")
-
-
-    for row in cursor:
-
-
-        
-
-
-        return(row[0])
-
-
-    conn.close()
-
-
-
-
-
-def aplicarEfecto():
-
-
-    conn = sql.connect("Registro.db")
-
-
-    cursor = conn.execute("SELECT efecto FROM movimientos where movimientoID = 6")
-
-
-    for row in cursor:
-
-
-        
-
-
-        return(row[0])
-
-
-    conn.close()
-
-
-
-
-
-def saludHumano():
-
-
-    conn = sql.connect("Registro.db")
-
-
-    cursor = conn.execute("SELECT salud FROM humanos where humanoID = 2")
-
-
-    for row in cursor:
-
-
-        
-
-
-        return(row[0])
-
-
-    conn.close()
-
-
-
-
-
-#if aplicarEfecto() == "*":
-
-
-#    print (saludHumano() - obtenerFuerza() * aplicarMovimiento())
-
-
-#else:
-
-
-#    print ("fracaso")
-
-
-
-
-
-
-
-
 #automatizacion
 
 
+def mostrarNombre(id):
 
 
-
-#def mostrarNombre(id):
-
-
-#    conn = sql.connect("Registro.db")
+    conn = sql.connect("Registro.db")
 
 
-#    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
+    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
 
 
-#        (id,))
+        (id,))
 
 
-#    for row in cursor:
+    for row in cursor:
 
 
-#        return(row[0])
+        return(row[0])
 
 
-#    conn.close()
+    conn.close()
+
+def obtenerSaludHumano(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT salud FROM humanos where humanoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerFuerzaHumano(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT fuerza FROM humanos where humanoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerSaludBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT salud FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+
+def obtenerFuerzaBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT fuerza FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerEnergiaBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT energia FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerCantidadObjetos(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT cantidad FROM bots where objetoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
 
 # corregir errores
 
-conn = sql.connect("Registro.db")
+#conn = sql.connect("Registro.db")
 
-cursor = conn.cursor()
+#cursor = conn.cursor()
 
-cursor.execute("UPDATE movimientos SET nombreMovimiento = 'Paraguas Protector' where movimientoID = 1")
+#cursor.execute("UPDATE movimientos SET nombreMovimiento = 'Paraguas Protector' where movimientoID = 1")
 
-cursor = conn.execute("SELECT * FROM movimientos")
+#cursor = conn.execute("SELECT * FROM movimientos")
 
-conn.commit()
+#conn.commit()
 
-for row in cursor:
-    print(row)
+#for row in cursor:
+#    print(row)
 
-conn.close()
+#conn.close()
+
+#funcionamiento del sistema dentro de la maquina
+
+#listar movimientos chico normal, Bella
+
+mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,13]]
+
+t = [[],
+     [],
+     []]
+
+o = [[],
+     [],
+     []]
+
+#meter datos solo index
+
+t[0]=(1,1)
+t[1]=(1,3,4,5,6,7)
+t[2]=(mov[0],mov[1])
+
+#esqueleto datos del jugador
+
+jugador = [[[],[]],
+           #bots / salud, fuerza, energia
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           #objetos, concretamente su cantidad
+           [[],[],[],[],[],[]]]
+
+#insertar datos al esqueleto
+#humano salud y fuerza
+jugador[0][0] = obtenerSaludHumano(t[0][0])
+jugador[0][1] = obtenerFuerzaHumano(t[0][0])
+#bot salud, fuerza y energia
+for i in range (len(t[0])-1):
+    jugador [i+1][0] = obtenerSaludBot(t[0][1])
+    jugador [i+1][1] = obtenerFuerzaBot(t[0][1])
+    jugador [i+1][2] = obtenerEnergiaBot(t[0][1])
+
+#objeto cantidad
+
+
+print (jugador)
