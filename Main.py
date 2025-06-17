@@ -556,7 +556,7 @@ def obtenerCantidadObjetos(id):
     conn = sql.connect("Registro.db")
 
 
-    cursor = conn.execute("SELECT cantidad FROM bots where objetoID = ?",
+    cursor = conn.execute("SELECT cantidad FROM objetos where objetoID = ?",
 
 
         (id,))
@@ -589,9 +589,9 @@ def obtenerCantidadObjetos(id):
 
 #funcionamiento del sistema dentro de la maquina
 
-#listar movimientos chico normal, Bella
+#listar movimientos chico normal, Bella, Angel, Shadowface, Glitter, Black
 
-mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,13]]
+mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,0],[6,19,20,0,0,0,0,0],[13,14,15,16,17,7,0,0],[17,18,20,21,0,0,0,0]]
 
 t = [[],
      [],
@@ -607,9 +607,25 @@ t[0]=(1,1)
 t[1]=(1,3,4,5,6,7)
 t[2]=(mov[0],mov[1])
 
+o[0]=(3,3,4)
+o[1]=(7,10,9,8,0,0)
+o[2]=(mov[3],mov[4],mov[5])
+
 #esqueleto datos del jugador
 
 jugador = [[[],[]],
+           #bots / salud, fuerza, energia
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           #objetos, concretamente su cantidad
+           [[],[],[],[],[],[]]]
+
+#esqueleto datos oponente
+
+oponente = [[[],[]],
            #bots / salud, fuerza, energia
            [[],[],[]],
            [[],[],[]],
@@ -625,11 +641,39 @@ jugador[0][0] = obtenerSaludHumano(t[0][0])
 jugador[0][1] = obtenerFuerzaHumano(t[0][0])
 #bot salud, fuerza y energia
 for i in range (len(t[0])-1):
-    jugador [i+1][0] = obtenerSaludBot(t[0][1])
-    jugador [i+1][1] = obtenerFuerzaBot(t[0][1])
-    jugador [i+1][2] = obtenerEnergiaBot(t[0][1])
+    jugador [i+1][0] = obtenerSaludBot(t[0][i+1])
+    jugador [i+1][1] = obtenerFuerzaBot(t[0][i+1])
+    jugador [i+1][2] = obtenerEnergiaBot(t[0][i+1])
 
 #objeto cantidad
 
+for i in range (6):
+    if obtenerCantidadObjetos(t[1][i]) == None:
+        jugador [6][i] = 0
+    else:
+        jugador [6][i] = obtenerCantidadObjetos(t[1][i])
 
-print (jugador)
+#humano salud y fuerza
+oponente[0][0] = obtenerSaludHumano(o[0][0])
+oponente[0][1] = obtenerFuerzaHumano(o[0][0])
+#bot salud, fuerza y energia
+for i in range (len(o[0])-1):
+    oponente [i+1][0] = obtenerSaludBot(o[0][i+1])
+    oponente [i+1][1] = obtenerFuerzaBot(o[0][i+1])
+    oponente [i+1][2] = obtenerEnergiaBot(o[0][i+1])
+
+#objeto cantidad
+
+for i in range (6):
+    if obtenerCantidadObjetos(o[1][i]) == None:
+        oponente [6][i] = 0
+    else:
+        oponente [6][i] = obtenerCantidadObjetos(o[1][i])
+
+print ("tu")
+for i in jugador:
+    print (i)
+
+print ("el oponente")
+for i in oponente:
+    print (i)
