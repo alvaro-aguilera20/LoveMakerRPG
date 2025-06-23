@@ -248,7 +248,7 @@ class boton():
     
 
 
-def obtenerObjeto(id):
+def obtenerNombreObjeto(id):
 
 
     conn = sql.connect("Registro.db")
@@ -269,7 +269,7 @@ def obtenerObjeto(id):
     
 
 
-def obtenerMovimiento(id):
+def obtenerNombreMovimiento(id):
 
 
     conn = sql.connect("Registro.db")
@@ -285,6 +285,149 @@ def obtenerMovimiento(id):
 
 
         return(row[0])
+    
+    #automatizacion
+
+
+def mostrarNombreHumano(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT nombreHumano FROM humanos where humanoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerSaludHumano(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT salud FROM humanos where humanoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerFuerzaHumano(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT fuerza FROM humanos where humanoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerSaludBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT salud FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+
+def obtenerFuerzaBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT fuerza FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerEnergiaBot(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT energia FROM bots where botID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
+    conn.close()
+
+def obtenerCantidadObjetos(id):
+
+
+    conn = sql.connect("Registro.db")
+
+
+    cursor = conn.execute("SELECT cantidad FROM objetos where objetoID = ?",
+
+
+        (id,))
+
+
+    for row in cursor:
+
+
+        return(row[0])
+
+
 
 
     
@@ -337,40 +480,40 @@ accederMenuObjetos = boton(None, 875, 450,FOCR,"Objetos")
 
 
 
-Objeto1 = boton(None, 125, 425, FOCRM, obtenerObjeto(1))
+Objeto1 = boton(None, 125, 425, FOCRM, obtenerNombreObjeto(1))
 
 
-Objeto2 = boton(None, 425, 425, FOCRM, obtenerObjeto(3))
+Objeto2 = boton(None, 425, 425, FOCRM, obtenerNombreObjeto(3))
 
 
-Objeto3 = boton(None, 725, 425, FOCRM, obtenerObjeto(4))
+Objeto3 = boton(None, 725, 425, FOCRM, obtenerNombreObjeto(4))
 
 
-Objeto4 = boton(None, 1025, 425, FOCRM, obtenerObjeto(6))
+Objeto4 = boton(None, 1025, 425, FOCRM, obtenerNombreObjeto(6))
 
 
-Objeto5 = boton(None, 450, 500, FOCRM, obtenerObjeto(8))
+Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(8))
 
 
-Objeto6 = boton(None, 900, 500, FOCRM, obtenerObjeto(9))
+Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(9))
 
 
 
 
 
-movimiento1 = boton(None, 300, 420, FOCRM, obtenerMovimiento(2))
+movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(2))
 
 
-movimiento2 = boton(None, 900, 420, FOCRM, obtenerMovimiento(3))
+movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(3))
 
 
-movimiento3 = boton(None, 300, 480, FOCRM, obtenerMovimiento(5))
+movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(5))
 
 
-movimiento4 = boton(None, 900, 480, FOCRM, obtenerMovimiento(6))
+movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(6))
 
 
-movimiento5 = boton(None, 900, 480, FOCRM, obtenerMovimiento(7))
+movimiento5 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(7))
 
 
 FlechaI = boton(None, 75, 525,FOCRM, "<--")
@@ -379,7 +522,121 @@ FlechaI = boton(None, 75, 525,FOCRM, "<--")
 FlechaD = boton(None, 1200, 525,FOCRM, "-->")
 
 
+#funcionamiento del sistema dentro de la maquina
 
+#listar movimientos chico normal, Bella, Angel, Shadowface, Glitter, Black
+
+mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,0],[6,19,20,0,0,0,0,0],[13,14,15,16,17,7,0,0],[17,18,20,21,0,0,0,0]]
+
+graficos = [[]]
+
+#esqueletos bases jugador, oponente
+
+t = [[],
+     [],
+     []]
+
+o = [[],
+     [],
+     []]
+
+#diccionarios de equipos
+
+Miguel = [[1,1],
+          [1,3,4,5,6,7],
+          [mov[0],mov[1]]]
+
+Angel = [[1,2],
+         [3,0,0,0,0,0],
+         [mov[0],mov[2]]]
+
+ShadowFace = [[3,3,4],
+              [7,10,9,8,0,0],
+              [mov[3],mov[4],mov[5]]]
+
+#meter datos solo index
+
+def introducirDatosJugador(jugador):
+    t[0]=(jugador[0])
+    t[1]=(jugador[1])
+    t[2]=(jugador[2])
+
+def introducirDatosOponente(Oponente):
+    o[0]=(Oponente[0])
+    o[1]=(Oponente[1])
+    o[2]=(Oponente[2])
+
+#esqueleto datos del jugador
+
+jugador = [[[],[]],
+           #bots / salud, fuerza, energia
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           #objetos, concretamente su cantidad
+           [[],[],[],[],[],[]]]
+
+#esqueleto datos oponente
+
+oponente = [[[],[]],
+           #bots / salud, fuerza, energia
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           [[],[],[]],
+           #objetos, concretamente su cantidad
+           [[],[],[],[],[],[]]]
+
+#insertar datos al esqueleto
+
+introducirDatosJugador(Miguel)
+
+introducirDatosOponente(ShadowFace)
+
+#humano salud y fuerza
+jugador[0][0] = obtenerSaludHumano(t[0][0])
+jugador[0][1] = obtenerFuerzaHumano(t[0][0])
+#bot salud, fuerza y energia
+for i in range (len(t[0])-1):
+    jugador [i+1][0] = obtenerSaludBot(t[0][i+1])
+    jugador [i+1][1] = obtenerFuerzaBot(t[0][i+1])
+    jugador [i+1][2] = obtenerEnergiaBot(t[0][i+1])
+
+#objeto cantidad
+
+for i in range (6):
+    if obtenerCantidadObjetos(t[1][i]) == None:
+        jugador [6][i] = 0
+    else:
+        jugador [6][i] = obtenerCantidadObjetos(t[1][i])
+
+#humano salud y fuerza
+oponente[0][0] = obtenerSaludHumano(o[0][0])
+oponente[0][1] = obtenerFuerzaHumano(o[0][0])
+#bot salud, fuerza y energia
+for i in range (len(o[0])-1):
+    oponente [i+1][0] = obtenerSaludBot(o[0][i+1])
+    oponente [i+1][1] = obtenerFuerzaBot(o[0][i+1])
+    oponente [i+1][2] = obtenerEnergiaBot(o[0][i+1])
+
+#objeto cantidad
+
+for i in range (6):
+    if obtenerCantidadObjetos(o[1][i]) == None:
+        oponente [6][i] = 0
+    else:
+        oponente [6][i] = obtenerCantidadObjetos(o[1][i])
+
+print ("tu")
+for i in jugador:
+    print (i)
+
+print ("el oponente")
+for i in oponente:
+    print (i)
 
 
 def inventario():
