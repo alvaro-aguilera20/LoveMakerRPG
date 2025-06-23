@@ -69,6 +69,10 @@ Shadowfave = pygame.image.load("graficos/Shadowface.png")
 
 MontañitasFondo = pygame.image.load("graficos/montañitas.png")
 
+CiudadFondo= pygame.image.load("graficos/ciudad fondo.png")
+
+edificiosDeFondo = pygame.image.load("graficos/edificios.png")
+
 PasilloFondo = pygame.image.load("graficos/pasilloFondo.png")
 
 SinLuz = pygame.image.load("graficos/FueraDeServicioFondo.png")
@@ -549,6 +553,38 @@ introducirDatosJugador(MiguelE)
 
 introducirDatosOponente(AngelE)
 
+iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+try:
+    iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+except IndexError:
+    iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+try:
+    iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+except IndexError:
+    iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+try:
+    iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+except IndexError:
+    iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+try:
+    iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+except IndexError:
+    iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+try:
+    iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+except IndexError:
+    iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[]]
+
+oposicion = [[(400,100),(350,0)],[(350,-25), (350,100)],[]]
+
 #humano salud y fuerza
 jugador[0][0] = obtenerSaludHumano(t[0][0])
 jugador[0][1] = obtenerFuerzaHumano(t[0][0])
@@ -603,6 +639,11 @@ Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(t[1][4]))
 
 Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(t[1][5]))
 
+FlechaI = boton(None, 75, 525,FOCRM, "<--")
+
+
+FlechaD = boton(None, 1200, 525,FOCRM, "-->")
+
 
 
 def inventario():
@@ -610,50 +651,20 @@ def inventario():
 
     while True:
 
-        Objeto1 = boton(None, 125, 425, FOCRM, obtenerObjeto(1))
+        Objeto1 = boton(None, 125, 425, FOCRM, obtenerNombreObjeto(t[2][0]))
 
-iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+        Objeto2 = boton(None, 425, 425, FOCRM, obtenerNombreObjeto(t[2][1]))
 
-try:
-    iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
-except IndexError:
-    iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
-
-try:
-    iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
-except IndexError:
-    iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
-
-try:
-    iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
-except IndexError:
-    iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
-
-try:
-    iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
-except IndexError:
-    iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+        Objeto3 = boton(None, 725, 425, FOCRM, obtenerNombreObjeto(t[2][2]))    
 
 
-try:
-    iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
-except IndexError:
-    iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
-
-oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[]]
-
-oposicion = [[(400,100),(350,0)],[(350,-25), (350,100)],[]]
-
-        Objeto3 = boton(None, 725, 425, FOCRM, obtenerObjeto(4))    
+        Objeto4 = boton(None, 1025, 425, FOCRM, obtenerNombreObjeto(t[2][3]))
 
 
-        Objeto4 = boton(None, 1025, 425, FOCRM, obtenerObjeto(6))
+        Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(t[2][4]))    
 
 
-        Objeto5 = boton(None, 450, 500, FOCRM, obtenerObjeto(8))    
-
-
-        Objeto6 = boton(None, 900, 500, FOCRM, obtenerObjeto(9))
+        Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(t[2][5]))
         
         
         posicionMouse = pygame.mouse.get_pos()
@@ -918,6 +929,10 @@ def MenuMovimientosHumano1():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
 
+                if iconoBot1.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot1_1()
 
                 if iconoBot2.botonApretado(posicionMouse):
 
@@ -1147,19 +1162,6 @@ def MenuHumano():
 
 
         #pygame.draw.rect(pantalla,(celestePastel), (400,200,300,300), width= 100,border_radius=100)
-
-
-        botOponente = pygame.transform.scale(Bella,(300,400))
-
-
-        humanoOponente = pygame.transform.scale(Miguel,(300,300))
-
-
-        pantalla.blit(humanoOponente,(550,100))
-
-
-        pantalla.blit(botOponente,(500,0))
-
 
         pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
 
@@ -1419,6 +1421,10 @@ def MenuMovimientosBot1_1():
 
                     MenuHumano()
 
+                if iconoBot1.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot1_1()
 
                 if FlechaI.botonApretado(posicionMouse):
 
