@@ -593,6 +593,8 @@ def obtenerCantidadObjetos(id):
 
 mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,0],[6,19,20,0,0,0,0,0],[13,14,15,16,17,7,0,0],[17,18,20,21,0,0,0,0]]
 
+#esqueletos bases jugador, oponente
+
 t = [[],
      [],
      []]
@@ -601,15 +603,31 @@ o = [[],
      [],
      []]
 
+#diccionarios de equipos
+
+Miguel = [[1,1],
+          [1,3,4,5,6,7],
+          [mov[0],mov[1]]]
+
+Angel = [[1,2],
+         [3,0,0,0,0,0],
+         [mov[0],mov[2]]]
+
+ShadowFace = [[3,3,4],
+              [7,10,9,8,0,0],
+              [mov[3],mov[4],mov[5]]]
+
 #meter datos solo index
 
-t[0]=(1,1)
-t[1]=(1,3,4,5,6,7)
-t[2]=(mov[0],mov[1])
+def introducirDatosJugador(jugador):
+    t[0]=(jugador[0])
+    t[1]=(jugador[1])
+    t[2]=(jugador[2])
 
-o[0]=(3,3,4)
-o[1]=(7,10,9,8,0,0)
-o[2]=(mov[3],mov[4],mov[5])
+def introducirDatosOponente(Oponente):
+    o[0]=(Oponente[0])
+    o[1]=(Oponente[1])
+    o[2]=(Oponente[2])
 
 #esqueleto datos del jugador
 
@@ -636,6 +654,11 @@ oponente = [[[],[]],
            [[],[],[],[],[],[]]]
 
 #insertar datos al esqueleto
+
+introducirDatosJugador(Miguel)
+
+introducirDatosOponente(ShadowFace)
+
 #humano salud y fuerza
 jugador[0][0] = obtenerSaludHumano(t[0][0])
 jugador[0][1] = obtenerFuerzaHumano(t[0][0])
@@ -677,3 +700,6 @@ for i in jugador:
 print ("el oponente")
 for i in oponente:
     print (i)
+
+
+print(t[2][0])
