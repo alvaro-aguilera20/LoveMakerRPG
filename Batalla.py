@@ -490,7 +490,7 @@ MiguelE = [[1,1],
           [1,3,4,5,6,7],
           [mov[0],mov[1]]]
 
-AngelE = [[1,2],
+AngelE = [[2,2],
          [3,0,0,0,0,0],
          [mov[0],mov[2]]]
 
@@ -538,7 +538,7 @@ oponente = [[[],[]],
 
 introducirDatosJugador(MiguelE)
 
-introducirDatosOponente(ShadowFaceE)
+introducirDatosOponente(AngelE)
 
 #humano salud y fuerza
 jugador[0][0] = obtenerSaludHumano(t[0][0])
@@ -626,6 +626,10 @@ try:
     iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
 except IndexError:
     iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[]]
+
+oposicion = [[(400,100),(350,0)],[(350,-25), (350,100)],[]]
 
 #definir menu del inventario
 
@@ -1107,13 +1111,8 @@ def MenuHumano():
 
         posicionMouse = pygame.mouse.get_pos()
 
-        botOponente = pygame.transform.scale(Angel,(500,450))
-
-        humanoOponente = pygame.transform.scale(Carlos,(150,300))
-
-        pantalla.blit(botOponente,(350,-25))
-
-        pantalla.blit(humanoOponente,(350,100))
+        for i in range (len(o[0])):
+            pantalla.blit(oponentes[((o[0][0])-1)][i], oposicion[((o[0][0])-1)][i])
 
         pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
 
