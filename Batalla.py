@@ -553,34 +553,6 @@ introducirDatosJugador(MiguelE)
 
 introducirDatosOponente(AngelE)
 
-iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
-
-try:
-    iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
-except IndexError:
-    iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
-
-try:
-    iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
-except IndexError:
-    iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
-
-try:
-    iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
-except IndexError:
-    iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
-
-try:
-    iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
-except IndexError:
-    iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
-
-
-try:
-    iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
-except IndexError:
-    iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
-
 oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[]]
 
 oposicion = [[(400,100),(350,0)],[(350,-25), (350,100)],[]]
@@ -622,23 +594,6 @@ for i in range (6):
 #definir botones
 
 
-Objeto1 = boton(None, 125, 425, FOCRM, obtenerNombreObjeto(t[1][0]))
-
-
-Objeto2 = boton(None, 425, 425, FOCRM, obtenerNombreObjeto(t[1][1]))
-
-
-Objeto3 = boton(None, 725, 425, FOCRM, obtenerNombreObjeto(t[1][2]))
-
-
-Objeto4 = boton(None, 1025, 425, FOCRM, obtenerNombreObjeto(t[1][3]))
-
-
-Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(t[1][4]))
-
-
-Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(t[1][5]))
-
 FlechaI = boton(None, 75, 525,FOCRM, "<--")
 
 
@@ -651,20 +606,20 @@ def inventario():
 
     while True:
 
-        Objeto1 = boton(None, 125, 425, FOCRM, obtenerNombreObjeto(t[2][0]))
+        Objeto1 = boton(None, 125, 425, FOCRM, obtenerNombreObjeto(t[1][0]))
 
-        Objeto2 = boton(None, 425, 425, FOCRM, obtenerNombreObjeto(t[2][1]))
+        Objeto2 = boton(None, 425, 425, FOCRM, obtenerNombreObjeto(t[1][1]))
 
-        Objeto3 = boton(None, 725, 425, FOCRM, obtenerNombreObjeto(t[2][2]))    
-
-
-        Objeto4 = boton(None, 1025, 425, FOCRM, obtenerNombreObjeto(t[2][3]))
+        Objeto3 = boton(None, 725, 425, FOCRM, obtenerNombreObjeto(t[1][2]))    
 
 
-        Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(t[2][4]))    
+        Objeto4 = boton(None, 1025, 425, FOCRM, obtenerNombreObjeto(t[1][3]))
 
 
-        Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(t[2][5]))
+        Objeto5 = boton(None, 450, 500, FOCRM, obtenerNombreObjeto(t[1][4]))    
+
+
+        Objeto6 = boton(None, 900, 500, FOCRM, obtenerNombreObjeto(t[1][5]))
         
         
         posicionMouse = pygame.mouse.get_pos()
@@ -674,6 +629,64 @@ def inventario():
 
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+ 
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
 
 
         Objeto1.cambiarDeColor(posicionMouse)
@@ -714,7 +727,6 @@ def inventario():
 
         iconoHumano1.update()
 
-
         iconoBot1.update()
 
 
@@ -728,43 +740,6 @@ def inventario():
 
 
         iconoBot5.update()
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
 
         for event in pygame.event.get():
 
@@ -795,15 +770,10 @@ def inventario():
 
         pygame.display.update()
 
-
-
-
-
 def MenuMovimientosHumano1():
 
 
     while True:
-
 
         movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][0][0]))
 
@@ -823,6 +793,62 @@ def MenuMovimientosHumano1():
 
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
 
 
         movimiento1.cambiarDeColor(posicionMouse)
@@ -862,6 +888,7 @@ def MenuMovimientosHumano1():
 
 
         iconoHumano1.update()
+        
 
 
         iconoBot1.update()
@@ -877,43 +904,6 @@ def MenuMovimientosHumano1():
 
 
         iconoBot5.update()
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
 
         for event in pygame.event.get():
 
@@ -992,6 +982,65 @@ def MenuMovimientosHumano2():
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
 
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+        
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+        
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
         movimiento1.cambiarDeColor(posicionMouse)
 
 
@@ -1061,43 +1110,6 @@ def MenuMovimientosHumano2():
 
         iconoBot5.update()
 
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
-
         for event in pygame.event.get():
 
 
@@ -1154,7 +1166,6 @@ def MenuHumano():
 
     while True:
 
-
         posicionMouse = pygame.mouse.get_pos()
 
         for i in range (len(o[0])):
@@ -1168,6 +1179,65 @@ def MenuHumano():
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
 
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+        
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
 
         accederMenuMovimientosPersonaje1.cambiarDeColor(posicionMouse)
 
@@ -1197,43 +1267,6 @@ def MenuHumano():
 
 
         iconoBot5.update()
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
 
         for event in pygame.event.get():
 
@@ -1292,10 +1325,6 @@ def MenuMovimientosBot1_1():
 
         movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][1][3]))
 
-        
-
-
-
         posicionMouse = pygame.mouse.get_pos()
 
 
@@ -1304,6 +1333,65 @@ def MenuMovimientosBot1_1():
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
 
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+        
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
 
         movimiento1.cambiarDeColor(posicionMouse)
 
@@ -1357,43 +1445,6 @@ def MenuMovimientosBot1_1():
 
 
         iconoBot5.update()
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
 
         for event in pygame.event.get():
 
@@ -1465,6 +1516,65 @@ def MenuMovimientosBot1_2():
 
         pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
 
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
 
         movimiento1.cambiarDeColor(posicionMouse)
 
@@ -1518,43 +1628,6 @@ def MenuMovimientosBot1_2():
 
 
         iconoBot5.update()
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
-
-
-        pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
-
-
-        pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
-
-
-
-
 
         for event in pygame.event.get():
 
