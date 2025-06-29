@@ -13,7 +13,7 @@ import sqlite3 as sql
 import pygame
 
 
-
+import random
 
 
 #con esto inicializamos el proceso de procesar letras
@@ -33,7 +33,7 @@ pygame.font.Font()
 
 #definir graficos que sacamos de la carpeta graficos
 
-
+fBase = pygame.image.load("graficos/base.png")
 
 nada = pygame.image.load("graficos/Nada.png")
 
@@ -43,8 +43,8 @@ humano2 = pygame.image.load("graficos/Humano2.png")
 
 humano3 = pygame.image.load("graficos/Humano3.png")
 
-
 humano4 = pygame.image.load("graficos/Humano4.png")
+
 Bot1 = pygame.image.load("graficos/Bot1.png")
 
 Bot2 = pygame.image.load("graficos/Bot2.png")
@@ -65,13 +65,9 @@ Miguel = pygame.image.load("graficos/Miguel.png")
 
 Carlos = pygame.image.load("graficos/Carlos.png")
 
-Shadowfave = pygame.image.load("graficos/Shadowface.png")
-
-MontañitasFondo = pygame.image.load("graficos/montañitas.png")
+ShadowFace = pygame.image.load("graficos/Shadowface.png")
 
 CiudadFondo= pygame.image.load("graficos/ciudad fondo.png")
-
-edificiosDeFondo = pygame.image.load("graficos/edificios.png")
 
 PasilloFondo = pygame.image.load("graficos/pasilloFondo.png")
 
@@ -458,24 +454,114 @@ def obtenerCantidadObjetos(id):
 
 
         return(row[0])
+    
+def obtenerTipoMovimiento(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT efecto FROM movimientos where movimientoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerDanioMovimiento(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT daño FROM movimientos where movimientoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerTerrenoMovimiento(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT terreno FROM movimientos where movimientoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerCostoMovimiento(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT costo FROM movimientos where movimientoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerDescripcionMovimiento(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT descripcionMovimiento FROM movimientos where movimientoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerEfectoObjeto(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT efecto FROM objetos where objetoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerPotenciaObjeto(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT factor FROM objetos where objetoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
+    
+def obtenerDescripcionObjeto(id):
+
+    conn = sql.connect("Registro.db")
+
+    cursor = conn.execute("SELECT descripcionObjeto FROM objetos where objetoID = ?",
+                          
+        (id,))
+    
+    for row in cursor:
+
+        return(row[0])
 
 
-fondo1 = pygame.transform.scale(MontañitasFondo,(1280,720))
+fondo1 = pygame.transform.scale(PasilloFondo,(1280,720))
 
 fondo2 = pygame.transform.scale(CiudadFondo,(1280,720))
 
-
-pantalla.blit(fondo2,(0,-300))
-
-
+fondo3 = pygame.transform.scale(SinLuz,(1280,720))
 
 accederMenuMovimientosPersonaje1 = boton(None, 225, 450,FOCR,"ATACAR")
 
 
 accederMenuObjetos = boton(None, 875, 450,FOCR,"Objetos")
-
-
-
 
 
 #funcionamiento del sistema dentro de la maquina
@@ -484,9 +570,9 @@ accederMenuObjetos = boton(None, 875, 450,FOCR,"Objetos")
 
 mov = [[6,7,0,0,0,0,0,0],[1,2,3,4,5,6,7,0],[6,7,8,9,10,11,12,0],[6,19,20,0,0,0,0,0],[13,14,15,16,17,7,0,0],[17,18,20,21,0,0,0,0]]
 
-graficosBotones = [[humano1,humano2,humano3,humano4],[Bot1,Bot2,Bot3]]
+graficosBotones = [[humano1,humano2,humano3,humano4],[Bot1,Bot2,Bot3,Bot4]]
 
-graficosOponentes = [[Miguel,Carlos],[Bella, Angel, Glitter]]
+graficosOponentes = [[Miguel,Carlos,ShadowFace],[Bella, Angel, Glitter,Black]]
 #esqueletos bases jugador, oponente
 
 t = [[],
@@ -508,8 +594,10 @@ AngelE = [[2,2],
          [mov[0],mov[2]]]
 
 ShadowFaceE = [[3,3,4],
-              [7,10,9,8,0,0],
+              [3,6,9,8,0,0],
               [mov[3],mov[4],mov[5]]]
+
+oponenteE = [MiguelE,AngelE,ShadowFaceE]
 
 #meter datos solo index
 
@@ -547,49 +635,9 @@ oponente = [[[],[]],
            #objetos, concretamente su cantidad
            [[],[],[],[],[],[]]]
 
-#insertar datos al esqueleto
+oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[pygame.transform.scale(ShadowFace,(550,425)),pygame.transform.scale(Glitter,(125,325)),pygame.transform.scale(Black,(150,400))]]
 
-introducirDatosJugador(MiguelE)
-
-introducirDatosOponente(AngelE)
-
-oponentes = [[pygame.transform.scale(Miguel,(300,300)),pygame.transform.scale(Bella,(300,400))],[pygame.transform.scale(Angel,(500,450)), pygame.transform.scale(Carlos,(150,300))],[]]
-
-oposicion = [[(400,100),(350,0)],[(350,-25), (350,100)],[]]
-
-#humano salud y fuerza
-jugador[0][0] = obtenerSaludHumano(t[0][0])
-jugador[0][1] = obtenerFuerzaHumano(t[0][0])
-#bot salud, fuerza y energia
-for i in range (len(t[0])-1):
-    jugador [i+1][0] = obtenerSaludBot(t[0][i+1])
-    jugador [i+1][1] = obtenerFuerzaBot(t[0][i+1])
-    jugador [i+1][2] = obtenerEnergiaBot(t[0][i+1])
-
-#objeto cantidad
-
-for i in range (6):
-    if obtenerCantidadObjetos(t[1][i]) == None:
-        jugador [6][i] = 0
-    else:
-        jugador [6][i] = obtenerCantidadObjetos(t[1][i])
-
-#humano salud y fuerza
-oponente[0][0] = obtenerSaludHumano(o[0][0])
-oponente[0][1] = obtenerFuerzaHumano(o[0][0])
-#bot salud, fuerza y energia
-for i in range (len(o[0])-1):
-    oponente [i+1][0] = obtenerSaludBot(o[0][i+1])
-    oponente [i+1][1] = obtenerFuerzaBot(o[0][i+1])
-    oponente [i+1][2] = obtenerEnergiaBot(o[0][i+1])
-
-#objeto cantidad
-
-for i in range (6):
-    if obtenerCantidadObjetos(o[1][i]) == None:
-        oponente [6][i] = 0
-    else:
-        oponente [6][i] = obtenerCantidadObjetos(o[1][i])
+oposicion = [[[650,240],[600,175]],[[650,200], [475,250]],[[625,215],[425,225],[850,250]]]
 
 #definir botones
 
@@ -599,7 +647,63 @@ FlechaI = boton(None, 75, 525,FOCRM, "<--")
 
 FlechaD = boton(None, 1200, 525,FOCRM, "-->")
 
+def selector():
 
+
+    while True:
+
+        pantalla.blit(fondo3,(0,0))
+
+        posicionMouse = pygame.mouse.get_pos()
+
+        personaje1= boton(oponentes[0][0],(300),(400), FOCR,"")
+
+        personaje2 = boton(oponentes[1][1],(600),(400), FOCR,"")
+
+        personaje3 = boton(oponentes[2][0],(900),(400), FOCR,"")
+
+        personaje1.update()
+
+        personaje2.update()
+
+        personaje3.update()
+
+        for event in pygame.event.get():
+                          
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                if personaje1.botonApretado(posicionMouse):
+
+                    introducirDatosJugador(MiguelE)
+
+                    introducirDatosOponente(oponenteE[random.randint(0,2)])
+                    
+                    MenuHumano()
+                if personaje2.botonApretado(posicionMouse):
+
+                    introducirDatosJugador(AngelE)
+
+                    introducirDatosOponente(oponenteE[random.randint(0,2)])
+                    
+                    MenuHumano()
+                if personaje3.botonApretado(posicionMouse):
+
+                    introducirDatosJugador(ShadowFaceE)
+
+                    introducirDatosOponente(oponenteE[random.randint(0,2)])
+                    
+                    MenuHumano()
+
+        pygame.display.update()
 
 def inventario():
 
@@ -758,15 +862,47 @@ def inventario():
 
                 if iconoBot1.botonApretado(posicionMouse):
 
+                    if len(t[0]) > 1:
 
-                    MenuMovimientosBot1_1()
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosHumano1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosHumano1()
 
 
                 if iconoHumano1.botonApretado(posicionMouse):
 
 
                     MenuHumano()
-
 
         pygame.display.update()
 
@@ -890,7 +1026,6 @@ def MenuMovimientosHumano1():
         iconoHumano1.update()
         
 
-
         iconoBot1.update()
 
 
@@ -919,15 +1054,75 @@ def MenuMovimientosHumano1():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
 
+                if movimiento1.botonApretado(posicionMouse):
+
+                    tipoTurno = 0
+
+                    movT = t[2][0][0]
+
+                    MovTurno(tipoTurno, movT)
+
+                if movimiento2.botonApretado(posicionMouse):
+
+                    tipoTurno = 0
+
+                    movT = t[2][0][1]
+
+                    MovTurno(tipoTurno, movT)
+
+                if movimiento3.botonApretado(posicionMouse):
+
+                    tipoTurno = 0
+
+                    movT = t[2][0][2]
+
+                    MovTurno(tipoTurno, movT)
+
+                if movimiento4.botonApretado(posicionMouse):
+
+                    tipoTurno = 0
+
+                    movT = t[2][0][3]
+
+                    MovTurno(tipoTurno, movT)
+
                 if iconoBot1.botonApretado(posicionMouse):
 
+                    if len(t[0]) > 1:
 
-                    MenuMovimientosBot1_1()
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
 
                 if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
 
 
-                    MenuMovimientosBot1_1()
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosHumano1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosHumano1()
 
 
                 if iconoHumano1.botonApretado(posicionMouse):
@@ -1127,8 +1322,29 @@ def MenuMovimientosHumano2():
 
                 if iconoBot1.botonApretado(posicionMouse):
 
+                    if len(t[0]) > 1:
 
-                    MenuMovimientosBot1_1()
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
 
 
                 if FlechaI.botonApretado(posicionMouse):
@@ -1148,10 +1364,6 @@ def MenuMovimientosHumano2():
 
                     MenuHumano()
 
-
-    
-
-
         pygame.display.update()
 
 
@@ -1166,13 +1378,77 @@ def MenuHumano():
 
     while True:
 
+        pantalla.blit(fondo2,(0,-300))
+
         posicionMouse = pygame.mouse.get_pos()
 
-        for i in range (len(o[0])):
-            pantalla.blit(oponentes[((o[0][0])-1)][i], oposicion[((o[0][0])-1)][i])
+        #humano salud y fuerza
+        jugador[0][0] = obtenerSaludHumano(t[0][0])
+        jugador[0][1] = obtenerFuerzaHumano(t[0][0])
+#bot salud, fuerza y energia
+        for i in range (len(t[0])-1):
+            jugador [i+1][0] = obtenerSaludBot(t[0][i+1])
+            jugador [i+1][1] = obtenerFuerzaBot(t[0][i+1])
+            jugador [i+1][2] = obtenerEnergiaBot(t[0][i+1])
 
+#objeto cantidad
 
+        for i in range (6):
+            if obtenerCantidadObjetos(t[1][i]) == None:
+                jugador [6][i] = 0
+            else:
+                jugador [6][i] = obtenerCantidadObjetos(t[1][i])
+
+#humano salud y fuerza
+        oponente[0][0] = obtenerSaludHumano(o[0][0])
+        oponente[0][1] = obtenerFuerzaHumano(o[0][0])
+#bot salud, fuerza y energia
+        for i in range (len(o[0])-1):
+            oponente [i+1][0] = obtenerSaludBot(o[0][i+1])
+            oponente [i+1][1] = obtenerFuerzaBot(o[0][i+1])
+            oponente [i+1][2] = obtenerEnergiaBot(o[0][i+1])
+
+#objeto cantidad
+
+        for i in range (6):
+            if obtenerCantidadObjetos(o[1][i]) == None:
+                oponente [6][i] = 0
+            else:
+                oponente [6][i] = obtenerCantidadObjetos(o[1][i])
+
+# cargar los oponentes
+
+        EnemigosSeleccionados = []
+
+        E1 = boton(oponentes[((o[0][0])-1)][0], (oposicion[((o[0][0])-1)][0][0]), (oposicion[((o[0][0])-1)][0][1]), FOCR, "")
+
+        EnemigosSeleccionados.append(E1)
+
+        if len(o[0]) > 1:
+                E2 = boton(oponentes[((o[0][0])-1)][1], oposicion[((o[0][0])-1)][1][0], oposicion[((o[0][0])-1)][1][1], FOCR, "")
+                EnemigosSeleccionados.append(E2)
+        
+        if len(o[0]) > 2:
+                E3 = boton(oponentes[((o[0][0])-1)][2], oposicion[((o[0][0])-1)][2][0], oposicion[((o[0][0])-1)][2][1], FOCR, "")
+                EnemigosSeleccionados.append(E3)
+
+        if len(o[0]) > 3:
+                E4 = boton(oponentes[((o[0][0])-1)][3], oposicion[((o[0][0])-1)][3][0], oposicion[((o[0][0])-1)][3][1], FOCR, "")
+                EnemigosSeleccionados.append(E4)
+        
+        if len(o[0]) > 4:
+                E5 = boton(oponentes[((o[0][0])-1)][4], oposicion[((o[0][0])-1)][4][0], oposicion[((o[0][0])-1)][4][1], FOCR, "")
+                EnemigosSeleccionados.append(E5)
+
+        if len(o[0]) > 5:
+            
+            E6 = boton(oponentes[((o[0][0])-1)][5], oposicion[((o[0][0])-1)][5][0], oposicion[((o[0][0])-1)][5][1], FOCR, "")
+            EnemigosSeleccionados.append(E6)
         #pygame.draw.rect(pantalla,(celestePastel), (400,200,300,300), width= 100,border_radius=100)
+
+        for i in range(len(o[0])):
+            EnemigosSeleccionados[i].update()
+            
 
         pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
 
@@ -1288,25 +1564,63 @@ def MenuHumano():
 
                     MenuMovimientosHumano1()
 
-
-                if iconoBot2.botonApretado(posicionMouse):
-
-
-                    MenuMovimientosBot1_1()
-
-
                 if accederMenuObjetos.botonApretado(posicionMouse):
 
 
                     inventario()
 
-
                 if iconoBot1.botonApretado(posicionMouse):
 
+                    if len(t[0]) > 1:
 
-                    MenuMovimientosBot1_1()
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
 
 
+        pygame.display.update()
+
+def MovTurno(tipoTurno, movT):
+
+    while True:
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        if tipoTurno == 0:
+
+            descripcion = boton(pygame.transform.scale(fBase,(1200,300)),640,525,FOCRM,obtenerDescripcionMovimiento(movT))
+
+        descripcion.update()
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
         pygame.display.update()
 
 def MenuMovimientosBot1_1():
@@ -1461,21 +1775,37 @@ def MenuMovimientosBot1_1():
             if event.type == pygame.MOUSEBUTTONDOWN:
 
 
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
                 if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
 
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
 
-                    MenuMovimientosBot1_1()
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
 
 
                 if iconoHumano1.botonApretado(posicionMouse):
 
 
                     MenuHumano()
-
-                if iconoBot1.botonApretado(posicionMouse):
-
-
-                    MenuMovimientosBot1_1()
 
                 if FlechaI.botonApretado(posicionMouse):
 
@@ -1644,16 +1974,31 @@ def MenuMovimientosBot1_2():
             if event.type == pygame.MOUSEBUTTONDOWN:
 
 
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
                 if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
 
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
 
-                    MenuMovimientosBot1_1()
-
-
-                if iconoHumano1.botonApretado(posicionMouse):
-
-
-                    MenuHumano()
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
 
 
                 if FlechaI.botonApretado(posicionMouse):
@@ -1670,5 +2015,1606 @@ def MenuMovimientosBot1_2():
 
         pygame.display.update()
 
+def MenuMovimientosBot2_1():
 
-MenuHumano()
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][0]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][1]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][2]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][3]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot2_2()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot2_2()
+
+
+        pygame.display.update()
+
+
+def MenuMovimientosBot2_2():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][4]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][5]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][6]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][7]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot2_1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot2_1()
+
+
+        pygame.display.update()
+
+def MenuMovimientosBot3_1():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][0]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][1]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][2]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][3]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot3_2()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot3_2()
+
+
+        pygame.display.update()
+
+
+def MenuMovimientosBot3_2():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][4]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][5]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][6]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][7]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot3_1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot3_1()
+
+
+        pygame.display.update()
+
+def MenuMovimientosBot4_1():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][0]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][1]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][2]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][3]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot4_2()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot4_2()
+
+
+        pygame.display.update()
+
+
+def MenuMovimientosBot4_2():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][4]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][5]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][6]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][7]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot4_1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot4_1()
+
+
+        pygame.display.update()
+
+def MenuMovimientosBot5_1():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][0]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][1]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][2]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][3]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot5_2()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot5_2()
+
+
+        pygame.display.update()
+
+
+def MenuMovimientosBot5_2():
+
+
+    while True:
+
+        movimiento1 = boton(None, 300, 420, FOCRM, obtenerNombreMovimiento(t[2][2][4]))
+
+
+        movimiento2 = boton(None, 900, 420, FOCRM, obtenerNombreMovimiento(t[2][2][5]))
+
+
+        movimiento3 = boton(None, 300, 480, FOCRM, obtenerNombreMovimiento(t[2][2][6]))
+
+
+        movimiento4 = boton(None, 900, 480, FOCRM, obtenerNombreMovimiento(t[2][2][7]))
+
+
+        posicionMouse = pygame.mouse.get_pos()
+
+
+        pygame.draw.rect(pantalla,(negro), (0,360,1280,360),border_top_left_radius=25,border_top_right_radius=25)
+
+
+        pygame.draw.rect(pantalla,(azul), (0,360,1280,360), width= 25,border_radius=25)
+
+        iconoHumano1 = boton(pygame.transform.scale(graficosBotones[0][(t[0][0])-1],(110,110)), 85, 625,FOCR,"")
+
+        pygame.draw.rect(pantalla,(rosaOscuro),(150, 600, 75,20))
+
+        try:
+            iconoBot1 = boton(pygame.transform.scale(graficosBotones[1][(t[0][1])-1],(110,110)), 290, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(355, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(355, 650, 75,20))
+
+        except IndexError:
+            iconoBot1 = boton(pygame.transform.scale(nada,(110,110)), 290, 625,FOCR,"")
+
+        try:
+            iconoBot2 = boton(pygame.transform.scale(graficosBotones[1][(t[0][2])-1],(110,110)), 495, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(560, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(560, 650, 75,20))
+
+        except IndexError:
+            iconoBot2 = boton(pygame.transform.scale(nada,(110,110)), 495, 625,FOCR,"")
+
+        try:
+            iconoBot3 = boton(pygame.transform.scale(graficosBotones[1][(t[0][3])-1],(110,110)), 700, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(765, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(765, 650, 75,20))
+
+        except IndexError:
+            iconoBot3 = boton(pygame.transform.scale(nada,(110,110)), 700, 625,FOCR,"")
+
+        try:
+            iconoBot4 = boton(pygame.transform.scale(graficosBotones[1][(t[0][4])],(110,110)), 905, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(970, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(970, 650, 75,20))
+
+        except IndexError:
+            iconoBot4 = boton(pygame.transform.scale(nada,(110,110)), 905, 625,FOCR,"")
+
+
+        try:
+            iconoBot5 = boton(pygame.transform.scale(graficosBotones[1][(t[0][5])-1],(110,110)), 1110, 625,FOCR,"")
+
+            pygame.draw.rect(pantalla,(rosaOscuro),(1175, 600, 75,20))
+
+
+            pygame.draw.rect(pantalla,(amarillo),(1175, 650, 75,20))
+
+        except IndexError:
+            iconoBot5 = boton(pygame.transform.scale(nada,(110,110)), 1110, 625,FOCR,"")
+
+        movimiento1.cambiarDeColor(posicionMouse)
+
+
+        movimiento1.update()
+
+
+        movimiento2.cambiarDeColor(posicionMouse)
+
+
+        movimiento2.update()
+
+
+        movimiento3.cambiarDeColor(posicionMouse)
+
+
+        movimiento3.update()
+
+
+        movimiento4.cambiarDeColor(posicionMouse)
+
+
+        movimiento4.update()
+
+
+        FlechaI.cambiarDeColor(posicionMouse)
+
+
+        FlechaI.update()
+
+
+        FlechaD.cambiarDeColor(posicionMouse)
+
+
+        FlechaD.update()
+
+
+        iconoHumano1.update()
+
+
+        iconoBot1.update()
+
+
+        iconoBot2.update()
+
+
+        iconoBot3.update()
+
+
+        iconoBot4.update()
+
+
+        iconoBot5.update()
+
+        for event in pygame.event.get():
+
+
+            if event.type == pygame.QUIT:
+
+
+                pygame.quit()
+
+
+                exit()
+
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                if iconoBot1.botonApretado(posicionMouse):
+
+                    if len(t[0]) > 1:
+
+                        MenuMovimientosBot1_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 2:
+                        
+                        MenuMovimientosBot2_1()
+                
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 3:
+                        
+                        MenuMovimientosBot3_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 4:
+                        
+                        MenuMovimientosBot4_1()
+
+                if iconoBot2.botonApretado(posicionMouse):
+                    if len(t[0]) > 5:
+                        
+                        MenuMovimientosBot5_1()
+
+
+                if iconoHumano1.botonApretado(posicionMouse):
+
+
+                    MenuHumano()
+
+
+                if FlechaI.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot5_1()
+
+
+                if FlechaD.botonApretado(posicionMouse):
+
+
+                    MenuMovimientosBot5_1()
+
+
+        pygame.display.update()
+
+selector()
